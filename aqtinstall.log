@@ -1,0 +1,14 @@
+2026-09-15 16:04:58,764 - aqt.metadata - DEBUG - metadata 140410279239808 Connection to 'https://download.qt.io' failed. Retrying with fallback 'https://master.qt.io/'.
+2026-09-15 16:05:01,773 - aqt.main - ERROR - installer 140410279239808 Failure to connect to https://master.qt.io/online/qtsdkrepository/windows_x86/desktop/: ConnectionError
+2026-09-15 16:05:04,982 - aqt.metadata - DEBUG - metadata 140440937963648 Connection to 'https://download.qt.io' failed. Retrying with fallback 'https://qtproject.mirror.liquidtelecom.com/'.
+2026-09-15 16:05:07,990 - aqt.main - ERROR - installer 140440937963648 Failure to connect to https://qtproject.mirror.liquidtelecom.com/online/qtsdkrepository/windows_x86/desktop/: ConnectionError
+==============================Suggested follow-up:==============================
+* Please use 'aqt list-qt windows desktop' to check that versions of qt exist within the spec '6.11'.
+2026-09-15 16:05:11,203 - aqt.metadata - DEBUG - metadata 140464345587840 Connection to 'https://download.qt.io' failed. Retrying with fallback 'https://master.qt.io/'.
+2026-09-15 16:05:14,211 - aqt.main - ERROR - installer 140464345587840 Failure to connect to https://master.qt.io/online/qtsdkrepository/windows_x86/desktop/: ConnectionError
+==============================Suggested follow-up:==============================
+* Please use 'aqt list-qt windows desktop' to check that versions of qt exist within the spec '6.11.2'.
+2026-09-15 16:05:17,422 - aqt.metadata - DEBUG - metadata 140679812198528 Connection to 'https://download.qt.io' failed. Retrying with fallback 'https://qtproject.mirror.liquidtelecom.com/'.
+2026-09-15 16:05:20,430 - aqt.main - ERROR - installer 140679812198528 Failure to connect to https://qtproject.mirror.liquidtelecom.com/online/qtsdkrepository/windows_x86/desktop/: ConnectionError
+==============================Suggested follow-up:==============================
+* Please use 'aqt list-qt windows desktop' to check that versions of qt exist within the spec '6.10'.
