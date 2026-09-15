@@ -48,7 +48,7 @@ jobs:
             cmake-preset: windows_msvc
             # TODO(@getchoo): This is the default in setup-dependencies/windows. Why isn't it working?!?!
             vcvars-arch: amd64
-            qt-version: 6.11.2
+            qt-version: 6.8.3
 
     runs-on: ${{ matrix.os }}
 
