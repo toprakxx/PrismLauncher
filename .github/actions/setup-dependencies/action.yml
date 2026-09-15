@@ -105,7 +105,7 @@ runs:
         	fi
         	;;
         *)
-        	echo "# 🚨 The platform \"$platform\" is not supported by vcpkg in CI!" >>"$GITHUB_STEP_SUMMARY"
+        	echo "# 🚨 The platform \"$RUNNER_OS\" is not supported by vcpkg in CI!" >>"$GITHUB_STEP_SUMMARY"
         	exit 1
         	;;
         esac
