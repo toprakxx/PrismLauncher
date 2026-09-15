@@ -33,7 +33,7 @@ jobs:
     environment: ${{ inputs.environment || '' }}
 
     permissions:
-      contents: read
+      contents: write  # Changed from 'read' to 'write' to allow GitHub Release creation
       # Required for Azure Trusted Signing
       id-token: write
       # Required for vcpkg binary cache
@@ -124,3 +124,21 @@ jobs:
           azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
           azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           azure-subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      ##
+      # RELEASE
+      ##
+
+      - name: Create Release and Upload Assets
+        # Only creates a release when pushing a Git tag (e.g. v1.0.0) or running manually
+        if: ${{ startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          # TODO: Adjust this path/pattern to point to where your windows packaging action puts the final files
+          files: |
+            build/**/*.zip
+            build/**/*.exe
+            build/**/*.msi
+          generate_release_notes: true
+          draft: false
+          prerelease: ${{ env.BUILD_TYPE == 'Debug' }} # Automatically marks debug builds as prereleases
