@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: GPL-3.0-only
+/// SPDX-License-Identifier: GPL-3.0-only
 /*
  *  Prism Launcher - Minecraft Launcher
  *  Copyright (C) 2022 Sefa Eyeoglu <contact@scrumplex.net>
@@ -130,6 +130,7 @@ void LaunchController::decideAccount()
 
 LaunchDecision LaunchController::decideLaunchMode()
 {
+    return LaunchDecision::Continue;
     if (!m_accountToUse || m_wantedLaunchMode == LaunchMode::Demo) {
         m_actualLaunchMode = LaunchMode::Demo;
         return LaunchDecision::Continue;
@@ -244,15 +245,15 @@ QString LaunchController::askOfflineName(const QString& playerName, bool* ok)
             break;
         case LaunchMode::Offline:
             if (m_wantedLaunchMode == LaunchMode::Normal) {
-                auto netErr = m_accountToUse->accountData()->networkError;
-                if (Net::isServerError(netErr)) {
-                    title = tr("Auth servers offline");
-                    message = tr("The Minecraft authentication servers are currently unavailable, launching in offline mode.\n\n");
-                } else {
-                    title = tr("No internet connection");
-                    message = tr("You are not connected to the Internet, launching in offline mode.\n\n");
-                }
-            }
+            //     auto netErr = m_accountToUse->accountData()->networkError;
+            //     if (Net::isServerError(netErr)) {
+            //         title = tr("Auth servers offline");
+            //         message = tr("The Minecraft authentication servers are currently unavailable, launching in offline mode.\n\n");
+            //     } else {
+            //         title = tr("No internet connection");
+            //         message = tr("You are not connected to the Internet, launching in offline mode.\n\n");
+            //     }
+            // }
             message += tr("Choose your offline mode player name");
             break;
     }
@@ -284,29 +285,30 @@ void LaunchController::login()
     while (decision == LaunchDecision::Undecided) {
         decision = decideLaunchMode();
     }
+
     if (decision == LaunchDecision::Abort) {
         emitAborted();
         return;
     }
 
-    if (m_actualLaunchMode == LaunchMode::Demo) {
-        if (m_wantedLaunchMode == LaunchMode::Demo || askPlayDemo()) {
-            bool ok = false;
-            auto name = askOfflineName("Player", &ok);
-            if (ok) {
-                m_session = std::make_shared<AuthSession>();
-                m_session->MakeDemo(name, MinecraftAccount::uuidFromUsername(name).toString(QUuid::Id128));
-                launchInstance();
-                return;
-            }
-        }
-
-        emitFailed(tr("No account selected for launch"));
-        return;
-    }
+    // if (m_actualLaunchMode == LaunchMode::Demo) {
+    //     if (m_wantedLaunchMode == LaunchMode::Demo || askPlayDemo()) {
+    //         bool ok = false;
+    //         auto name = askOfflineName("Player", &ok);
+    //         if (ok) {
+    //             m_session = std::make_shared<AuthSession>();
+    //             m_session->MakeDemo(name, MinecraftAccount::uuidFromUsername(name).toString(QUuid::Id128));
+    //             launchInstance();
+    //             return;
+    //         }
+    //     }
+    //
+    //     emitFailed(tr("No account selected for launch"));
+    //     return;
+    // }
 
     m_session = std::make_shared<AuthSession>();
-    m_session->launchMode = m_actualLaunchMode;
+    m_session->launchMode = LaunchMode::Offline;
     m_accountToUse->fillSession(m_session);
 
     if (m_accountToUse->accountType() != AccountType::Offline) {
@@ -337,6 +339,7 @@ void LaunchController::login()
 
 bool LaunchController::reauthenticateAccount(const MinecraftAccountPtr& account, const QString& reason)
 {
+    return true;
     auto button = QMessageBox::warning(
         m_parentWidget, tr("Account refresh failed"), tr("%1. Do you want to reauthenticate this account?").arg(reason),
         QMessageBox::StandardButton::Yes | QMessageBox::StandardButton::No, QMessageBox::StandardButton::Yes);
