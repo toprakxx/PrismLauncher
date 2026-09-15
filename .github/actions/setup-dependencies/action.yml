@@ -126,5 +126,5 @@ runs:
         version: ${{ inputs.qt-version }}
         setup-python: false
         modules: qtimageformats qtnetworkauth
-        use-official: ${{ runner.os == 'Windows' }}
+        use-official: false
         cache: ${{ inputs.build-type == 'Debug' }}
