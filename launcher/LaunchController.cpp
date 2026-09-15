@@ -253,7 +253,7 @@ QString LaunchController::askOfflineName(const QString& playerName, bool* ok)
             //         title = tr("No internet connection");
             //         message = tr("You are not connected to the Internet, launching in offline mode.\n\n");
             //     }
-            // }
+            }
             message += tr("Choose your offline mode player name");
             break;
     }
