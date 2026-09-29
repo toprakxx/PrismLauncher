@@ -129,13 +129,16 @@ void AccountListPage::listChanged()
 
 void AccountListPage::on_actionAddMicrosoft_triggered()
 {
-    auto account = MSALoginDialog::newAccount(this);
-    if (account) {
-        m_accounts->addAccount(account);
-        if (m_accounts->count() == 1) {
-            m_accounts->setDefaultAccount(account);
-        }
-    }
+    //forward calls to offline account addition
+    on_actionAddOffline_triggered();
+
+    //auto account = MSALoginDialog::newAccount(this);
+    //if (account) {
+    //    m_accounts->addAccount(account);
+    //    if (m_accounts->count() == 1) {
+    //        m_accounts->setDefaultAccount(account);
+    //    }
+    //}
 }
 
 void AccountListPage::on_actionAddOffline_triggered()

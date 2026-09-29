@@ -69,9 +69,10 @@ MinecraftAccountPtr MinecraftAccount::loadFromJsonV3(const QJsonObject& json)
 
 MinecraftAccountPtr MinecraftAccount::createBlankMSA()
 {
-    MinecraftAccountPtr account(new MinecraftAccount());
-    account->data.type = AccountType::MSA;
-    return account;
+    return createOffline("Default");
+    // MinecraftAccountPtr account(new MinecraftAccount());
+    // account->data.type = AccountType::MSA;
+    // return account;
 }
 
 MinecraftAccountPtr MinecraftAccount::createOffline(const QString& username)

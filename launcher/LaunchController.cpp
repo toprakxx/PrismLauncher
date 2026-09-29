@@ -95,20 +95,20 @@ void LaunchController::decideAccount()
 
     if (!accounts->anyAccountIsValid()) {
         // Tell the user they need to log in at least one account in order to play.
-        auto reply = CustomMessageBox::selectable(m_parentWidget, tr("No Accounts"),
-                                                  tr("In order to play Minecraft, you must have at least one Microsoft "
-                                                     "account which owns Minecraft logged in. "
-                                                     "Would you like to open the account manager to add an account now?"),
-                                                  QMessageBox::Information, QMessageBox::Yes | QMessageBox::No)
-                         ->exec();
-
-        if (reply == QMessageBox::Yes) {
+        // auto reply = CustomMessageBox::selectable(m_parentWidget, tr("No Accounts"),
+        //                                           tr("In order to play Minecraft, you must have at least one Microsoft "
+        //                                              "account which owns Minecraft logged in. "
+        //                                              "Would you like to open the account manager to add an account now?"),
+        //                                           QMessageBox::Information, QMessageBox::Yes | QMessageBox::No)
+        //                  ->exec();
+        //
+        // if (reply == QMessageBox::Yes) {
             // Open the account manager.
             APPLICATION->ShowGlobalSettings(m_parentWidget, "accounts");
-        } else if (reply == QMessageBox::No) {
-            // Do not open "profile select" dialog.
-            return;
-        }
+        // } else if (reply == QMessageBox::No) {
+        //     // Do not open "profile select" dialog.
+        //     return;
+        // }
     }
 
     if (!m_accountToUse && accounts->anyAccountIsValid()) {
@@ -130,6 +130,8 @@ void LaunchController::decideAccount()
 
 LaunchDecision LaunchController::decideLaunchMode()
 {
+    return LaunchDecision::Continue;
+    /*
     if (!m_accountToUse || m_wantedLaunchMode == LaunchMode::Demo) {
         m_actualLaunchMode = LaunchMode::Demo;
         return LaunchDecision::Continue;
@@ -182,8 +184,9 @@ LaunchDecision LaunchController::decideLaunchMode()
         state = accountToCheck->accountState();
     }
 
+
     QString reauthReason;
-    switch (state) {
+     switch (state) {
         case AccountState::Errored:
             reauthReason = tr("An error occurred while refreshing '%1'").arg(accountToCheck->profileName());
             break;
@@ -200,7 +203,8 @@ LaunchDecision LaunchController::decideLaunchMode()
             m_actualLaunchMode =
                 state == AccountState::Online && m_wantedLaunchMode == LaunchMode::Normal ? LaunchMode::Normal : LaunchMode::Offline;
             return LaunchDecision::Continue;  // All good to go
-    }
+    }*/
+
 
     if (reauthenticateAccount(accountToCheck, reauthReason)) {
         return LaunchDecision::Undecided;
@@ -393,7 +397,7 @@ void LaunchController::launchInstance()
     connect(m_launcher, &LaunchTask::failed, this, &LaunchController::onFailed);
     connect(m_launcher, &LaunchTask::requestProgress, this, &LaunchController::onProgressRequested);
 
-    // Prepend Online and Auth Status
+    // useless string for formatting                Prepend Online and Auth Status
     QString online_mode;
     if (m_actualLaunchMode == LaunchMode::Normal) {
         online_mode = "online";
