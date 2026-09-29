@@ -203,7 +203,7 @@ LaunchDecision LaunchController::decideLaunchMode()
             m_actualLaunchMode =
                 state == AccountState::Online && m_wantedLaunchMode == LaunchMode::Normal ? LaunchMode::Normal : LaunchMode::Offline;
             return LaunchDecision::Continue;  // All good to go
-    }*/
+    }
 
 
     if (reauthenticateAccount(accountToCheck, reauthReason)) {
@@ -211,6 +211,7 @@ LaunchDecision LaunchController::decideLaunchMode()
     }
 
     return LaunchDecision::Abort;
+    */
 }
 
 bool LaunchController::askPlayDemo() const
